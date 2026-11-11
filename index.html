@@ -263,7 +263,8 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px}
       <details><summary>Serve pra quem treina pouco ou não treina?</summary><p>Serve. O plano parte de onde você está hoje.</p></details>
       <details><summary>Vou ter que cortar tudo que eu gosto?</summary><p>Não. O plano é montado com o que você come e gosta, e a gente prevê os momentos fora da rotina.</p></details>
       <details><summary>Preciso fazer exames?</summary><p>Não é obrigatório. Se tiver exames recentes, pode me mandar que eu uso no seu plano.</p></details>
-      <details><summary>E se eu quiser cancelar?</summary><p>Você tem 7 dias a partir da compra pra desistir, com reembolso integral. Emito nota fiscal pra reembolso no plano de saúde.</p></details>
+      <details><summary>E se eu quiser cancelar?</summary><p>Você tem 7 dias a partir da compra pra desistir, com reembolso integral.</p></details>
+      <details><summary>Aceita plano de saúde?</summary><p>O atendimento é particular, mas eu emito nota fiscal pra você pedir reembolso ao seu plano.</p></details>
     </div>
   </div>
 </section>
@@ -291,7 +292,14 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px}
     }
     els.forEach(function(e){ e.textContent = txt; });
   }
-  tick(); setInterval(tick, 30000);
+  function closeSales(){
+    document.querySelectorAll('a.btn').forEach(function(a){
+      a.textContent = "Vendas encerradas"; a.removeAttribute("href"); a.removeAttribute("target");
+      a.setAttribute("aria-disabled","true"); a.style.opacity = ".55"; a.style.pointerEvents = "none";
+    });
+  }
+  tick(); if (end - Date.now() <= 0) closeSales();
+  setInterval(function(){ tick(); if (end - Date.now() <= 0) closeSales(); }, 30000);
 })();
 </script>
 
